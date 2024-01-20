@@ -11,6 +11,7 @@
 *.sln.docstates
 commands.txt
 *.http
+*.db
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
