@@ -21,11 +21,14 @@ builder.Services.AddDbContextPool<TaskTrackerInMemoryContext>(options => options
 ************************************************/
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 // Infrastructure DI only - API needs to DI into Application services
+builder.Services.AddScoped<ITaskTrackerContext, TaskTrackerInMemoryContext>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
-builder.Services.AddScoped<ITaskTrackerContext, TaskTrackerInMemoryContext>();
+builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
+
 
 
 

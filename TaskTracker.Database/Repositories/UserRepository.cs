@@ -13,6 +13,7 @@ public class UserRepository : IUserRepository
         _dbContext = dbContext;
     }
 
+    #region Create
     public async Task<User> Add(User user)
     {
         await _dbContext.Users.AddAsync(user);
@@ -20,24 +21,88 @@ public class UserRepository : IUserRepository
 
         return user;
     }
+    #endregion
 
+    #region Read
     public async Task<IEnumerable<User>> GetAll()
     {
-        return await _dbContext.Users.ToListAsync();
+        return await _dbContext.Users
+        .AsNoTracking()
+        .ToListAsync();
     }
 
-    public async Task<User> GetById(int Id)
+    public async Task<User?> GetById(int id)
     {
-        throw new NotImplementedException();
+        return await _dbContext.Users
+        .AsNoTracking()
+        .Where(x => x.Id == id)
+        .FirstOrDefaultAsync();
+    }
+    #endregion
+
+    #region Update
+    public async Task<User?> Modify(User user)
+    {
+        var dbUser = await _dbContext.Users
+        .Where(x => x.Id == user.Id && !x.IsDeleted)
+        .FirstOrDefaultAsync();
+
+        if (dbUser is not null)
+        {
+            dbUser.Name = user.Name;
+            await _dbContext.SaveChangesAsync();
+        }
+
+        return dbUser;
+    }
+    #endregion
+
+    #region Delete
+    public async Task<User?> Delete(int id)
+    {
+        var user = await _dbContext.Users
+        .Where(x => x.Id == id)
+        .FirstOrDefaultAsync();
+
+        if (user is not null)
+        {
+            user.IsDeleted = true;
+            await _dbContext.SaveChangesAsync();
+        }
+
+        return user;
     }
 
-    public async Task<User> Delete(int id)
+        /* why not */
+    public async Task<User?> DeleteInTransaction(int id)
     {
-        throw new NotImplementedException();
-    }
+        using var transaction = _dbContext.Database.BeginTransaction();
+        User? user = null;
+        try
+        {
+            // context.SaveChanges();
+            // transaction.CreateSavepoint("BeforeMoreBlogs");
+            user = await _dbContext.Users
+            .Where(x => x.Id == id)
+            .FirstOrDefaultAsync();
 
-    public async Task<User> Modify(User user)
-    {
-        throw new NotImplementedException();
+            if (user is not null)
+            {
+                user.IsDeleted = true;
+                await _dbContext.SaveChangesAsync();
+            }
+
+            await _dbContext.SaveChangesAsync();
+            transaction.Commit();
+        }
+        catch (Exception)
+        {
+            // If a failure occurred, we rollback to the savepoint and can continue the transaction
+            //transaction.RollbackToSavepoint("BeforeMoreBlogs");
+
+            // TODO: Handle failure, possibly retry inserting blogs
+        }
+        return user;
     }
+    #endregion
 }

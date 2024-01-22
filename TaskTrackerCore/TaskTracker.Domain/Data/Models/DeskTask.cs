@@ -9,5 +9,5 @@ public class DeskTask : BaseEntity
     public int UserId { get; set; }
     [ForeignKey("UserId")]
     public virtual User User  { get; set; }
-    public DateTimeOffset DueTime { get; set; }
+    public DateTimeOffset? DueTime { get; set; }
 }

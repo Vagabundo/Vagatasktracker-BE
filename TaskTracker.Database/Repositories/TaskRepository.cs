@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using TaskTracker.Application.Interfaces;
 using TaskTracker.Domain;
 
@@ -11,6 +12,7 @@ public class TaskRepository : ITaskRepository
         _dbContext = dbContext;
     }
 
+    #region Create
     public async Task<DeskTask> Add(DeskTask task)
     {
         await _dbContext.Tasks.AddAsync(task);
@@ -18,24 +20,59 @@ public class TaskRepository : ITaskRepository
 
         return task;
     }
+    #endregion
 
+    #region Read
     public async Task<IEnumerable<DeskTask>> GetAll()
     {
-        throw new NotImplementedException();
+        return await _dbContext.Tasks
+        .AsNoTracking()
+        .ToListAsync();
+    }
+    #endregion
+
+    public async Task<DeskTask?> GetById(int id)
+    {
+        return await _dbContext.Tasks
+        .AsNoTracking()
+        .Where(x => x.Id == id)
+        .FirstOrDefaultAsync();
     }
 
-    public async Task<DeskTask> GetById(int id)
+    #region Update
+    public async Task<DeskTask?> Modify(DeskTask task)
     {
-        throw new NotImplementedException();
-    }
+        var dbTask = await _dbContext.Tasks
+        .Where(x => x.Id == task.Id && !x.IsDeleted)
+        .FirstOrDefaultAsync();
 
-    public async Task<DeskTask> Modify(Task task)
-    {
-        throw new NotImplementedException();
-    }
+        if (dbTask is not null)
+        {
+            dbTask.Name = task.Name;
+            dbTask.Description = task.Description;
+            dbTask.DueTime = task.DueTime;
 
-    public async Task<DeskTask> Delete(int id)
-    {
-        throw new NotImplementedException();
+            await _dbContext.SaveChangesAsync();
+        }
+
+        return dbTask;
     }
+    #endregion
+
+    #region Delete
+    public async Task<DeskTask?> Delete(int id)
+    {
+        var task = await _dbContext.Tasks
+        .Where(x => x.Id == id)
+        .FirstOrDefaultAsync();
+
+        if (task is not null)
+        {
+            task.IsDeleted = true;
+            await _dbContext.SaveChangesAsync();
+        }
+
+        return task;
+    }
+    #endregion
 }

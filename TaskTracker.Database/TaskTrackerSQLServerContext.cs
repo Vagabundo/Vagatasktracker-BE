@@ -11,12 +11,5 @@ public class TaskTrackerSQLServerContext : TaskTrackerContextBase
     {
         optionsBuilder.UseSqlServer("ConnectionString");
     }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<User>()
-            .HasIndex(u => u.Name)
-            .IsUnique();
-    }
 }
 

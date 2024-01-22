@@ -6,15 +6,24 @@ namespace TaskTracker.Application.Services;
 public class TaskService : ITaskService
 {
     private ITaskRepository _taskRepository;
+    private INotificationRepository _notificationRepository;
 
-    public TaskService (ITaskRepository taskRepository)
+    public TaskService (ITaskRepository taskRepository, INotificationRepository notificationRepository)
     {
         _taskRepository = taskRepository;
+        _notificationRepository = notificationRepository;
     }
 
     public async Task<DeskTask> Add(DeskTask deskTask)
     {
-        throw new NotImplementedException();
+        await _taskRepository.Add(deskTask);
+        await _notificationRepository.Add(new Notification
+        {
+            TaskId = deskTask.Id,
+            Text = deskTask.Description ?? deskTask.Name
+        });
+
+        return deskTask;
     }
 
     public async Task<IEnumerable<DeskTask>> GetAll()
