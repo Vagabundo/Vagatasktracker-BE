@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker", "TaskTracker\TaskTracker.csproj", "{F75781CC-42F7-4537-B6DD-707468C22658}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Api", "TaskTracker.Api\TaskTracker.Api.csproj", "{F75781CC-42F7-4537-B6DD-707468C22658}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTimelimitWorker", "TaskTimelimitWorker\TaskTimelimitWorker.csproj", "{DDF8BB08-4418-4867-A69E-4B38BB68DDE8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Workers", "TaskTracker.Workers\TaskTracker.Workers.csproj", "{DDF8BB08-4418-4867-A69E-4B38BB68DDE8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskTrackerCore", "TaskTrackerCore", "{87E993F7-CFA8-4CC7-8C03-BB7595ADDCD8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskTracker.Core", "TaskTracker.Core", "{87E993F7-CFA8-4CC7-8C03-BB7595ADDCD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Domain", "TaskTrackerCore\TaskTracker.Domain\TaskTracker.Domain.csproj", "{5B54DBC7-7352-45E9-87BB-CF2CB586FD03}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Domain", "TaskTracker.Core\TaskTracker.Domain\TaskTracker.Domain.csproj", "{5B54DBC7-7352-45E9-87BB-CF2CB586FD03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Application", "TaskTrackerCore\TaskTracker.Application\TaskTracker.Application.csproj", "{01398F2A-5A4F-40B3-A1FA-E04873192C48}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Application", "TaskTracker.Core\TaskTracker.Application\TaskTracker.Application.csproj", "{01398F2A-5A4F-40B3-A1FA-E04873192C48}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Database", "TaskTracker.Database\TaskTracker.Database.csproj", "{9F2459D6-0304-45E3-93F8-83A66F018EB3}"
 EndProject
