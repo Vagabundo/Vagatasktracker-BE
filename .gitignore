@@ -12,6 +12,7 @@
 commands.txt
 *.http
 *.db
+*.db-*
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

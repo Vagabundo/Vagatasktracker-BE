@@ -8,12 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 /************************************************
 * Add connection string to services container - using EF pooling for performance
 ************************************************/
-builder.Services.AddDbContextPool<TaskTrackerInMemoryContext>(options => options.UseInMemoryDatabase("TaskTrackerInMemoryDatabase"));
-// builder.Services.AddDbContextPool<TaskTrackerSqLiteContext>(options => 
-// {
-//     options.UseSqlite(builder.Configuration.GetConnectionString(@"Data Source=D:\Projects\Vagatasktracker-BE\TaskTrackerDB.db;Version=3;"));
-// });
-//builder.Services.AddDbContextPool<TaskTrackerSQLServerContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TaskTrackerSQLServerDatabase")));
+// builder.Services.AddDbContextPool<TaskTrackerInMemoryContext>(options => options.UseInMemoryDatabase("TaskTrackerInMemoryDatabase"));
+builder.Services.AddDbContextPool<TaskTrackerSqLiteContext>(options => 
+{
+    options.UseSqlite(@"Data Source=D:\Projects\Vagatasktracker-BE\TaskTrackerDB.db;");
+});
+// builder.Services.AddDbContextPool<TaskTrackerSQLServerContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TaskTrackerSQLServerDatabase")));
 
 
 /************************************************
@@ -24,12 +24,10 @@ builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 
 // Infrastructure DI only - API needs to DI into Application services
-builder.Services.AddScoped<ITaskTrackerContext, TaskTrackerInMemoryContext>();
+builder.Services.AddScoped<ITaskTrackerContext, TaskTrackerSqLiteContext>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
-
-
 
 
 // Add services to the container.

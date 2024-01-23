@@ -6,7 +6,7 @@ using TaskTracker.Application.Interfaces;
 using TaskTracker.Domain;
 
 
-namespace TaskTracker.Controllers;
+namespace TaskTracker.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

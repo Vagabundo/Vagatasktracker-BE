@@ -1,7 +1,6 @@
-using Microsoft.Data.SqlClient;
 using TaskTracker.Domain;
 
-namespace TaskTimelimit.Worker;
+namespace TaskTracker.Worker.Hubs;
 
 public interface INotification
 {

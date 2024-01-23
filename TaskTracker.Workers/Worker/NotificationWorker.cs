@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.SignalR;
-using TaskTimelimit.Hubs;
+using TaskTracker.Worker.Hubs;
 using TaskTracker.Application.Interfaces;
-using TaskTracker.Domain;
 
-namespace TaskTimelimit.Worker;
+namespace TaskTracker.Worker;
 
 /* https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-8.0&tabs=netcore-cli */
 
@@ -23,13 +22,13 @@ public class NotificationWorker : BackgroundService, IDisposable
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        await _notificationService.Add(new Notification
-        {
-            Text = "Hacer la cama",
-            TaskId = 1,
-            Delivered = false,
-            IsDeleted = false
-        });
+        // await _notificationService.Add(new Notification
+        // {
+        //     Text = "Hacer la cama",
+        //     TaskId = 1,
+        //     Delivered = false,
+        //     IsDeleted = false
+        // });
 
         using var timer = new PeriodicTimer(TimeSpan.FromMinutes(1));
         while (await timer.WaitForNextTickAsync(stoppingToken))
@@ -50,7 +49,7 @@ public class NotificationWorker : BackgroundService, IDisposable
         {
             _logger.LogInformation($"Checking notification: {notification.Id}");
             // TODO: for multiusers, check if notification's user is connected using claims, then proceed
-            // In this scenario, we assume there is only one client and it is always connected
+            // In this scenario, we assume there is only one client and it is always connected (running in local PC)
             // Trigger SignalR broadcasting for each event
             // await _hubContext.Clients.User(notification.DeskTask.UserId.ToString()).SendAsync("Notification", notification.DeskTask.Name, notification.DeskTask.Description);
             await _hubContext.Clients.All.SendAsync("Notification", notification.DeskTask.Name, notification.DeskTask.Description);
