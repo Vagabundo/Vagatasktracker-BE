@@ -4,9 +4,9 @@ namespace TaskTracker.Application.Interfaces;
 
 public interface IUserService
 {
-    Task<User> Add(User entity);
-    Task<User> Delete(int id);
-    Task<User> Get(int id);
-    Task<IEnumerable<User>> GetAll();
-    Task<User> Update(User entity);
+    Task<UserProfile> Add(UserProfile entity);
+    Task<UserProfile> Delete(Guid id);
+    Task<UserProfile> Get(Guid id);
+    Task<IEnumerable<UserProfile>> GetAll();
+    Task<UserProfile> Update(UserProfile entity);
 }

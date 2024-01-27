@@ -12,9 +12,9 @@ public class TaskTrackerSqLiteContext : TaskTrackerContextBase
     //     optionsBuilder.UseSqlite(@"Data Source=D:\Projects\Vagatasktracker-BE\TaskTrackerDB.db;Version=3;");
     // }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(TaskTrackerSqLiteContext).Assembly);
-    }
+    // protected override void OnModelCreating(ModelBuilder modelBuilder)
+    // {
+    //     modelBuilder.ApplyConfigurationsFromAssembly(typeof(TaskTrackerSqLiteContext).Assembly);
+    // }
 }
 

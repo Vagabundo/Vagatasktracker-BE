@@ -31,7 +31,7 @@ public class TaskService : ITaskService
         return await _taskRepository.GetAll();
     }
 
-    public async Task<DeskTask> Get(int id)
+    public async Task<DeskTask> Get(Guid id)
     {
         return await _taskRepository.GetById(id);
     }
@@ -41,7 +41,7 @@ public class TaskService : ITaskService
         throw new NotImplementedException();
     }
 
-    public Task<DeskTask> Delete(int id)
+    public Task<DeskTask> Delete(Guid id)
     {
         throw new NotImplementedException();
     }

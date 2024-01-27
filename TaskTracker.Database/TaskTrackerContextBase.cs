@@ -1,22 +1,27 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TaskTracker.Domain;
 
 namespace TaskTracker.Database;
 
-public class TaskTrackerContextBase : DbContext, ITaskTrackerContext
+public class TaskTrackerContextBase : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>/*, ITaskTrackerContext*/
 {
     public TaskTrackerContextBase(DbContextOptions<TaskTrackerContextBase> options) : base(options) {}
     protected TaskTrackerContextBase(DbContextOptions options) : base(options) {}
 
-    public DbSet<User> Users { set; get; }
     public DbSet<DeskTask> Tasks { set; get; }
     public DbSet<Notification> Notifications { set; get; }
-    public async Task<int> SaveChangesAsync() => await base.SaveChangesAsync();
+    public DbSet<UserProfile> UserProfiles { set; get; }
+
+    // needed only if using IDbContext
+    //public async Task<int> SaveChangesAsync() => await base.SaveChangesAsync();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>().Property(b => b.IsDeleted).HasDefaultValue(false);
-        modelBuilder.Entity<User>().HasIndex(u => u.Name).IsUnique();
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<UserProfile>().Property(b => b.IsDeleted).HasDefaultValue(false);
+        //modelBuilder.Entity<IdentityUser>().HasKey(u => u.Id);
 
         modelBuilder.Entity<DeskTask>().Property(b => b.IsDeleted).HasDefaultValue(false);
 

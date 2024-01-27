@@ -1,29 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
-    <!-- In order to run migrations, this reference has to be added in a start up project.
-    That project also needs to create an instance of the dbcontext, thus this is here and not in the Database project.
-    Creating a dummy project, or just a Program.cs with dummy functionality in Database project only to inject the dbcontext instance is another option -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.1"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.1"/>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.0"/>
   </ItemGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\TaskTracker.Database\TaskTracker.Database.csproj" />
-    <ProjectReference Include="..\TaskTracker.Core\TaskTracker.Application\TaskTracker.Application.csproj" />
+    <ProjectReference Include="..\TaskTracker.Database\TaskTracker.Database.csproj"/>
+    <ProjectReference Include="..\TaskTracker.Core\TaskTracker.Application\TaskTracker.Application.csproj"/>
   </ItemGroup>
-
 </Project>

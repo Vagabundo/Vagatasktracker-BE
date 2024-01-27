@@ -6,8 +6,8 @@ namespace TaskTracker.Database;
 
 public class TaskRepository : ITaskRepository
 {
-    private ITaskTrackerContext _dbContext;
-    public TaskRepository(ITaskTrackerContext dbContext)
+    private TaskTrackerContextBase _dbContext;
+    public TaskRepository(TaskTrackerContextBase dbContext)
     {
         _dbContext = dbContext;
     }
@@ -31,7 +31,7 @@ public class TaskRepository : ITaskRepository
     }
     #endregion
 
-    public async Task<DeskTask?> GetById(int id)
+    public async Task<DeskTask?> GetById(Guid id)
     {
         return await _dbContext.Tasks
         .AsNoTracking()
@@ -60,7 +60,7 @@ public class TaskRepository : ITaskRepository
     #endregion
 
     #region Delete
-    public async Task<DeskTask?> Delete(int id)
+    public async Task<DeskTask?> Delete(Guid id)
     {
         var task = await _dbContext.Tasks
         .Where(x => x.Id == id)

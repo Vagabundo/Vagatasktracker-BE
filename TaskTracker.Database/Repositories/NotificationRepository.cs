@@ -6,9 +6,9 @@ namespace TaskTracker.Database;
 
 public class NotificationRepository : INotificationRepository
 {
-    private ITaskTrackerContext _dbContext;
+    private TaskTrackerContextBase _dbContext;
 
-    public NotificationRepository(ITaskTrackerContext dbContext)
+    public NotificationRepository(TaskTrackerContextBase dbContext)
     {
         _dbContext = dbContext;
     }
@@ -49,7 +49,7 @@ public class NotificationRepository : INotificationRepository
     }
     #endregion
 
-    public async Task<Notification?> GetById(int id)
+    public async Task<Notification?> GetById(Guid id)
     {
         return await _dbContext.Notifications
         .AsNoTracking()
@@ -80,7 +80,7 @@ public class NotificationRepository : INotificationRepository
     #endregion
 
     #region Delete
-    public async Task<Notification?> Delete(int id)
+    public async Task<Notification?> Delete(Guid id)
     {
         var notification = await _dbContext.Notifications
         .Where(x => x.Id == id)

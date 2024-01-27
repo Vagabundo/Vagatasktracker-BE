@@ -6,7 +6,7 @@ public interface INotificationRepository
 {
     Task<Notification> Add(Notification notification);
     Task<IEnumerable<Notification>> GetAll();
-    Task<Notification?> GetById(int Id);
+    Task<Notification?> GetById(Guid id);
     Task<Notification?> Modify(Notification notification);
-    Task<Notification?> Delete(int id);
+    Task<Notification?> Delete(Guid id);
 }

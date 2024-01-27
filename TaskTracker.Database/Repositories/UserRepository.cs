@@ -6,17 +6,17 @@ namespace TaskTracker.Database;
 
 public class UserRepository : IUserRepository
 {
-    private ITaskTrackerContext _dbContext;
+    private TaskTrackerContextBase _dbContext;
 
-    public UserRepository(ITaskTrackerContext dbContext)
+    public UserRepository(TaskTrackerContextBase dbContext)
     {
         _dbContext = dbContext;
     }
 
     #region Create
-    public async Task<User> Add(User user)
+    public async Task<UserProfile> Add(UserProfile user)
     {
-        await _dbContext.Users.AddAsync(user);
+        await _dbContext.UserProfiles.AddAsync(user);
         await _dbContext.SaveChangesAsync();
 
         return user;
@@ -24,32 +24,32 @@ public class UserRepository : IUserRepository
     #endregion
 
     #region Read
-    public async Task<IEnumerable<User>> GetAll()
+    public async Task<IEnumerable<UserProfile>> GetAll()
     {
-        return await _dbContext.Users
+        return await _dbContext.UserProfiles
         .AsNoTracking()
         .ToListAsync();
     }
 
-    public async Task<User?> GetById(int id)
+    public async Task<UserProfile?> GetById(Guid id)
     {
-        return await _dbContext.Users
+        return await _dbContext.UserProfiles
         .AsNoTracking()
-        .Where(x => x.Id == id)
+        .Where(x => x.UserId == id)
         .FirstOrDefaultAsync();
     }
     #endregion
 
     #region Update
-    public async Task<User?> Modify(User user)
+    public async Task<UserProfile?> Modify(UserProfile profile)
     {
-        var dbUser = await _dbContext.Users
-        .Where(x => x.Id == user.Id && !x.IsDeleted)
+        var dbUser = await _dbContext.UserProfiles
+        .Where(x => x.UserId == profile.UserId && !x.IsDeleted)
         .FirstOrDefaultAsync();
 
         if (dbUser is not null)
         {
-            dbUser.Name = user.Name;
+            dbUser.Name = profile.Name;
             await _dbContext.SaveChangesAsync();
         }
 
@@ -58,10 +58,10 @@ public class UserRepository : IUserRepository
     #endregion
 
     #region Delete
-    public async Task<User?> Delete(int id)
+    public async Task<UserProfile?> Delete(Guid id)
     {
-        var user = await _dbContext.Users
-        .Where(x => x.Id == id)
+        var user = await _dbContext.UserProfiles
+        .Where(x => x.UserId == id)
         .FirstOrDefaultAsync();
 
         if (user is not null)
@@ -74,16 +74,16 @@ public class UserRepository : IUserRepository
     }
 
         /* why not */
-    public async Task<User?> DeleteInTransaction(int id)
+    public async Task<UserProfile?> DeleteInTransaction(Guid id)
     {
         using var transaction = _dbContext.Database.BeginTransaction();
-        User? user = null;
+        UserProfile? user = null;
         try
         {
             // context.SaveChanges();
             // transaction.CreateSavepoint("BeforeMoreBlogs");
-            user = await _dbContext.Users
-            .Where(x => x.Id == id)
+            user = await _dbContext.UserProfiles
+            .Where(x => x.UserId == id)
             .FirstOrDefaultAsync();
 
             if (user is not null)

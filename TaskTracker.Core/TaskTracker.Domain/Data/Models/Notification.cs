@@ -4,7 +4,7 @@ namespace TaskTracker.Domain;
 
 public class Notification : BaseEntity
 {
-    public int TaskId { get; set; }
+    public Guid TaskId { get; set; }
     [ForeignKey("TaskId")]
     public virtual DeskTask DeskTask  { get; set; }
     public string Text { get; set; }

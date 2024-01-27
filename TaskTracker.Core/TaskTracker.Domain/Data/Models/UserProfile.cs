@@ -1,14 +1,16 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
 namespace TaskTracker.Domain;
 
-public class DeskTask : BaseEntity
+public class UserProfile
 {  
-    public string Name { get; set; }
-    public string? Description { get; set; }
+    [Key]
     public Guid UserId { get; set; }
     [ForeignKey("UserId")]
     public virtual IdentityUser<Guid> User  { get; set; }
-    public DateTimeOffset? DueTime { get; set; }
+    public string Name { get; set; }
+    public string FamilyName { get; set; }
+    public bool IsDeleted { get; set; }
 }

@@ -1,8 +1,9 @@
+using Microsoft.AspNetCore.Identity;
 using TaskTracker.Domain;
 
 namespace TaskTracker.Worker.Hubs;
 
 public interface INotification
 {
-    Task SendNotification(User user, Notification notification);
+    Task SendNotification(IdentityUser user, Notification notification);
 }

@@ -17,7 +17,7 @@ public class NotificationService : INotificationService
         return await _notificationRepository.Add(entity);
     }
 
-    public async Task<Notification?> Get(int id)
+    public async Task<Notification?> Get(Guid id)
     {
         return await _notificationRepository.GetById(id);
     }
@@ -33,7 +33,7 @@ public class NotificationService : INotificationService
         return all.Where(x => !x.IsDeleted && !x.Delivered && x.DeskTask.DueTime < DateTimeOffset.UtcNow.AddMinutes(10)) ?? new List<Notification>();
     }
 
-    public async Task<Notification?> Delete(int id)
+    public async Task<Notification?> Delete(Guid id)
     {
         return await _notificationRepository.Delete(id);
     }

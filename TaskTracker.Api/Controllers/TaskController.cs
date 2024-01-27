@@ -1,4 +1,5 @@
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskTracker.API.DTOs;
 using TaskTracker.API.MappingProfiles;
@@ -19,6 +20,7 @@ public class TaskController : ControllerBase
         _taskService = taskService;
     }
 
+    [Authorize]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<TaskDTO>>> Get()
     {
@@ -26,7 +28,7 @@ public class TaskController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<TaskDTO>> Get(int id)
+    public async Task<ActionResult<TaskDTO>> Get(Guid id)
     {
         var entity = await _taskService.Get(id);
         if (entity == null)
@@ -44,7 +46,7 @@ public class TaskController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put(int id, TaskDTO entity)
+    public async Task<IActionResult> Put(Guid id, TaskDTO entity)
     {
         if (id != entity.Id)
         {
@@ -55,7 +57,7 @@ public class TaskController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<ActionResult<TaskDTO>> Delete(int id)
+    public async Task<ActionResult<TaskDTO>> Delete(Guid id)
     {
         var entity = await _taskService.Delete(id);
         if (entity == null)
