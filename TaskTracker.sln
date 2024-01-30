@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Domain", "TaskT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Application", "TaskTracker.Core\TaskTracker.Application\TaskTracker.Application.csproj", "{01398F2A-5A4F-40B3-A1FA-E04873192C48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Database", "TaskTracker.Database\TaskTracker.Database.csproj", "{9F2459D6-0304-45E3-93F8-83A66F018EB3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Database", "TaskTracker.Infrastructure\TaskTracker.Database\TaskTracker.Database.csproj", "{9F2459D6-0304-45E3-93F8-83A66F018EB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

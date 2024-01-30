@@ -17,7 +17,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.0"/>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TaskTracker.Database\TaskTracker.Database.csproj"/>
+    <ProjectReference Include="..\TaskTracker.Infrastructure\TaskTracker.Database\TaskTracker.Database.csproj"/>
     <ProjectReference Include="..\TaskTracker.Core\TaskTracker.Application\TaskTracker.Application.csproj"/>
   </ItemGroup>
 </Project>

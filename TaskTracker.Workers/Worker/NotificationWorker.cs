@@ -22,14 +22,6 @@ public class NotificationWorker : BackgroundService, IDisposable
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        // await _notificationService.Add(new Notification
-        // {
-        //     Text = "Hacer la cama",
-        //     TaskId = 1,
-        //     Delivered = false,
-        //     IsDeleted = false
-        // });
-
         using var timer = new PeriodicTimer(TimeSpan.FromMinutes(1));
         while (await timer.WaitForNextTickAsync(stoppingToken))
         {

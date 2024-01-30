@@ -14,11 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 // builder.Services.AddDbContextPool<TaskTrackerInMemoryContext>(options => options.UseInMemoryDatabase("TaskTrackerInMemoryDatabase"));
 builder.Services.AddDbContextPool<TaskTrackerSqLiteContext>(options => 
 {
-    //options.UseSqlite(@"Data Source=D:\Projects\Vagatasktracker-BE\TaskTrackerDB.db;");
     options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteTaskTrackerDatabase"));
 });
-// builder.Services.AddDbContextPool<TaskTrackerSQLServerContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TaskTrackerSQLServerDatabase")));
-
 
 /************************************************
 * Dependency Injection 
@@ -41,11 +38,6 @@ builder.Services
     .AddHttpContextAccessor()
     .AddAuthorization()
     .AddAuthentication();
-// builder.Services.AddIdentity<User, IdentityRole<Guid>>(options => options.SignIn.RequireConfirmedAccount = false)
-//      .AddEntityFrameworkStores<TaskTrackerSqLiteContext>();
-
-// builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
-//      .AddEntityFrameworkStores<TaskTrackerSqLiteContext>();
 
 builder.Services.AddIdentityApiEndpoints<IdentityUser<Guid>>()
     .AddEntityFrameworkStores<TaskTrackerSqLiteContext>();

@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 ************************************************/
 builder.Services.AddDbContextPool<TaskTrackerSqLiteContext>(options => 
 {
-    options.UseSqlite(@"Data Source=D:\Projects\Vagatasktracker-BE\TaskTrackerDB.db;");
+    options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteTaskTrackerDatabase"));
 });
 
 /************************************************

@@ -5,7 +5,7 @@ using TaskTracker.Domain;
 
 namespace TaskTracker.Database;
 
-public class TaskTrackerContextBase : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>/*, ITaskTrackerContext*/
+public class TaskTrackerContextBase : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>
 {
     public TaskTrackerContextBase(DbContextOptions<TaskTrackerContextBase> options) : base(options) {}
     protected TaskTrackerContextBase(DbContextOptions options) : base(options) {}
@@ -13,9 +13,6 @@ public class TaskTrackerContextBase : IdentityDbContext<IdentityUser<Guid>, Iden
     public DbSet<DeskTask> Tasks { set; get; }
     public DbSet<Notification> Notifications { set; get; }
     public DbSet<UserProfile> UserProfiles { set; get; }
-
-    // needed only if using IDbContext
-    //public async Task<int> SaveChangesAsync() => await base.SaveChangesAsync();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
