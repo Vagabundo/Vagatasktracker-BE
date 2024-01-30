@@ -21,7 +21,7 @@ builder.Services.AddDbContextPool<TaskTrackerSqLiteContext>(options =>
 builder.Services.AddSingleton<INotificationService, NotificationService>();
 
 // Infrastructure DI only - API needs to DI into Application services
-builder.Services.AddSingleton<ITaskTrackerContext, TaskTrackerSqLiteContext>();
+builder.Services.AddSingleton<TaskTrackerContextBase, TaskTrackerSqLiteContext>();
 builder.Services.AddSingleton<INotificationRepository, NotificationRepository>();
 
 builder.Services.AddHostedService<NotificationWorker>();

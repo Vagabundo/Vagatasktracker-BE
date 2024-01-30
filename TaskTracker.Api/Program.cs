@@ -14,7 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 // builder.Services.AddDbContextPool<TaskTrackerInMemoryContext>(options => options.UseInMemoryDatabase("TaskTrackerInMemoryDatabase"));
 builder.Services.AddDbContextPool<TaskTrackerSqLiteContext>(options => 
 {
-    options.UseSqlite(@"Data Source=D:\Projects\Vagatasktracker-BE\TaskTrackerDB.db;");
+    //options.UseSqlite(@"Data Source=D:\Projects\Vagatasktracker-BE\TaskTrackerDB.db;");
+    options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteTaskTrackerDatabase"));
 });
 // builder.Services.AddDbContextPool<TaskTrackerSQLServerContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TaskTrackerSQLServerDatabase")));
 
@@ -36,8 +37,10 @@ builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddControllers();
 
 // Add Auth
-builder.Services.AddAuthorization();
-builder.Services.AddAuthentication();
+builder.Services
+    .AddHttpContextAccessor()
+    .AddAuthorization()
+    .AddAuthentication();
 // builder.Services.AddIdentity<User, IdentityRole<Guid>>(options => options.SignIn.RequireConfirmedAccount = false)
 //      .AddEntityFrameworkStores<TaskTrackerSqLiteContext>();
 
@@ -72,6 +75,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapIdentityApi<IdentityUser<Guid>>();
